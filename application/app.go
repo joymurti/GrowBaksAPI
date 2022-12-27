@@ -48,7 +48,9 @@ func SetupApplication(ctx context.Context) (*App, error) {
 	// setup fiber in separated func
 	app.Application = setupFiber(fiber.New())
 
+	// Local
 	app.DB, err = pgx.Connect(context.Background(), fmt.Sprintf("postgres://%s:%s@%s:%d/%s", app.Config.Database.DBUser, app.Config.Database.DBPassword, app.Config.Database.DBHost, app.Config.Database.DBPort, app.Config.Database.DBName))
+
 	if err != nil {
 		app.Logger.Error("Failed connecting to databases, reason ", err)
 		return app, err
